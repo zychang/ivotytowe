@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <RelativeLayout 
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:background="@drawable/ivotryc_2"
+        ></RelativeLayout>
+    
+    <TextView 
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:textColor="#000000"
+        android:text="象牙塔地址：济南市经五小纬六路32-1号（济南团市委南楼205）"
+        />
+    <TextView 
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:textColor="#000000"
+        android:text="电话：(86-0531-87183838)"
+        />
+    <TextView 
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:textColor="#000000"
+        android:text="咨询师个人联系方式："
+        />
+    <TextView 
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:textColor="#000000"
+        android:text="李宁宁老师：
+QQ:78760447       电话：15662728882 邮箱：78760447@qq.com"
+        />
+    <TextView 
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:textColor="#000000"
+        android:text="赵文静老师：
+QQ :604783381     电话：15069062127  邮箱：604783381@qq.com"
+        />
+    
+    <TextView 
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:textColor="#000000"
+        android:text="赵晶老师 ：
+QQ:693325078     电话：15169109907 邮箱693325078@qq.com"
+        />
+    <TextView 
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:textColor="#000000"
+        android:text="*"
+        />
+     <TextView 
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:textColor="#000000"
+        android:text="关于开发者:"
+        />
+      <TextView 
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:textColor="#000000"
+        android:text="开发者：常远工作室"
+        />
+       <TextView 
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:textColor="#000000"
+        android:text="版本：1.0"
+        />
+        <TextView 
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:textColor="#000000"
+        android:text="开发者邮箱：zychanggood@aliyun.com"
+        />
+         <TextView 
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:textColor="#000000"
+        android:text="说明：由于时间有限，更多功能未能开发，界面有待改善，敬请谅解。任何意见可给开发者发送邮件或者在象牙塔群里留言。更多功能敬请期待2.0版本O(∩_∩)O~~"
+        />
+    
+
+</LinearLayout>
