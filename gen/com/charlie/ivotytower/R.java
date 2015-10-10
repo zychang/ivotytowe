@@ -34,10 +34,15 @@ public final class R {
         public static final int test_icon=0x7f020006;
     }
     public static final class id {
-        public static final int action_settings=0x7f09001e;
+        public static final int action_settings=0x7f090024;
         public static final int arror=0x7f090007;
         public static final int de_list=0x7f090002;
         public static final int deg=0x7f090011;
+        public static final int details_author=0x7f09001c;
+        public static final int details_category=0x7f09001e;
+        public static final int details_content=0x7f09001f;
+        public static final int details_image=0x7f09001a;
+        public static final int details_time=0x7f09001d;
         public static final int guany=0x7f090012;
         public static final int huo_list=0x7f090009;
         public static final int huod=0x7f090010;
@@ -52,33 +57,36 @@ public final class R {
         public static final int linearLayout1=0x7f09000a;
         public static final int nv_list=0x7f090003;
         public static final int nvs=0x7f09000f;
-        public static final int nvs_list=0x7f09001a;
+        public static final int nvs_list=0x7f090020;
         public static final int progress=0x7f090008;
         public static final int shij=0x7f09000d;
-        public static final int shij_list=0x7f09001b;
+        public static final int shij_list=0x7f090021;
         public static final int shou_item=0x7f090001;
         public static final int shouy=0x7f09000b;
-        public static final int stulist=0x7f09001c;
+        public static final int stulist=0x7f090022;
         public static final int tip=0x7f090005;
+        public static final int title=0x7f09001b;
         public static final int update_time=0x7f090006;
         public static final int xues=0x7f09000e;
         public static final int yu=0x7f090013;
         public static final int zhic=0x7f09000c;
-        public static final int zhic_list=0x7f09001d;
+        public static final int zhic_list=0x7f090023;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
         public static final int deguo=0x7f030001;
-        public static final int guan_iv=0x7f030002;
-        public static final int guan_yu=0x7f030003;
-        public static final int header_layout=0x7f030004;
-        public static final int huodong=0x7f030005;
-        public static final int lemt_menu=0x7f030006;
-        public static final int listview_item=0x7f030007;
-        public static final int nvs=0x7f030008;
-        public static final int shij=0x7f030009;
-        public static final int student=0x7f03000a;
-        public static final int zhic=0x7f03000b;
+        public static final int essay=0x7f030002;
+        public static final int guan_iv=0x7f030003;
+        public static final int guan_yu=0x7f030004;
+        public static final int header_layout=0x7f030005;
+        public static final int huodong=0x7f030006;
+        public static final int lemt_menu=0x7f030007;
+        public static final int listview_item=0x7f030008;
+        public static final int news=0x7f030009;
+        public static final int nvs=0x7f03000a;
+        public static final int shij=0x7f03000b;
+        public static final int student=0x7f03000c;
+        public static final int zhic=0x7f03000d;
     }
     public static final class menu {
         public static final int main=0x7f080000;

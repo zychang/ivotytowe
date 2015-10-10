@@ -13,7 +13,11 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
 import org.json.JSONObject;
+
+
+
 
 
 
@@ -52,13 +56,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity implements view.ReFlashListView.IReflashListener{
-	ArrayList<ApkEntity> apk_list;
+	public ArrayList<ApkEntity> apk_list;	
 	private Slindingmenu mleftMenu;
 	private static boolean isExit = false;
 	
 	List<ApkEntity> news = new ArrayList<ApkEntity>();
 	
-	ApkEntity newsObject = new ApkEntity();
+	public ApkEntity[] newsObjects = new ApkEntity[10];	
 	
 	MyAdapter adapter;
 	ReFlashListView listView;
@@ -87,11 +91,14 @@ public class MainActivity extends Activity implements view.ReFlashListView.IRefl
 			switch(msg.what){
 			case 0:
 				isExit = false;
+			case 2:
+				showList(apk_list);
 			case 0x1122:			
-		//		im = (ImageView) findViewById(R.id.item_image);
-			
+		//		im = (ImageView) findViewById(R.id.item_image);			
 		//		im.setImageBitmap(bitmap);
-				newsObject.setApk_im(bitmap);
+		//		newsObjects[0].setApk_im(bitmap);
+		//		Log.d("Image", "ui线程show图片");
+		//		showList(apk_list);
 			}			
 		}
 	};
@@ -101,8 +108,6 @@ public class MainActivity extends Activity implements view.ReFlashListView.IRefl
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_main);	
-		setData();
-		showList(apk_list);
 		
 		mleftMenu = (Slindingmenu) findViewById(R.id.id_menu);
 		text_8 = (TextView) findViewById(R.id.yu);
@@ -114,11 +119,9 @@ public class MainActivity extends Activity implements view.ReFlashListView.IRefl
 		text_2 = (TextView) findViewById(R.id.shij);
 		text_1 = (TextView) findViewById(R.id.zhic);
 		text_1 = (TextView) findViewById(R.id.shouy);
-		
-		
-		
-		getImage();
+			
 		sendRequestWithHttpUrlConnection();
+		getImage();
 	}
 	
 	public void getImage(){
@@ -133,7 +136,7 @@ public class MainActivity extends Activity implements view.ReFlashListView.IRefl
 				
 					InputStream it_is=url.openStream();
 					bitmap=BitmapFactory.decodeStream(it_is);
-				it_is.close();
+				    it_is.close();
 				} catch (Exception e) {
 					// TODO 自动生成的 catch 块
 					e.printStackTrace();
@@ -145,7 +148,6 @@ public class MainActivity extends Activity implements view.ReFlashListView.IRefl
 	}
 	
 	
-	
 	private void sendRequestWithHttpUrlConnection() {
 		//开启线程来发起网络请求
 		new Thread(new Runnable() {
@@ -155,49 +157,47 @@ public class MainActivity extends Activity implements view.ReFlashListView.IRefl
 				try {				
 					HttpClient httpClient = new DefaultHttpClient();
 					//指定访问的服务器地址是电脑本机
-					HttpGet httpget = new HttpGet("http://10.0.2.2/wordpress/?json=get_post&post_id=30");
+					HttpGet httpget = new HttpGet("http://10.0.2.2/wordpress/?json=get_recent_posts");
 					HttpResponse httpResponse = httpClient.execute(httpget);
 					if(httpResponse.getStatusLine().getStatusCode() == 200 ){
 						//请求和响应都成功了
-						Log.d("MainaActivity", "请求网站成功");
 						HttpEntity entity = httpResponse.getEntity();
 						String response = EntityUtils.toString(entity, "utf-8");
-						parseJSONWithGSON(response);
-					}
-									
+						parseJSONWithGSON(response);						
+					}									
 				} catch (Exception e) {
 					e.printStackTrace();
 				}	
+				mHandler.sendEmptyMessage(2);
 			}			
 		}).start();	
 	}
-
-	
 	
 	protected void parseJSONWithGSON(String jsonData) {
-		try {
-			
-			JSONObject post = new JSONObject(jsonData).getJSONObject("post");	
-			JSONObject author = new JSONObject(jsonData).getJSONObject("post").
-					getJSONObject("author");
-			
-			
-					
-			String id = post.getString("id");
-			String title = post.getString("title");
-			String content = post.getString("content");
-			String date = post.getString("date");
-			String imageurl = post.getString("thumbnail");			
-			String name = author.getString("name");	
-			
-			newsObject.setId(id);
-			newsObject.setTitle(title);
-			newsObject.setContent(content);
-			newsObject.setDate(date);
-			newsObject.setName(name);
-			newsObject.setImageUrl(imageurl);
-			
-																
+		try {			
+			JSONArray posts = new JSONObject(jsonData).getJSONArray("posts");						
+			for(int j=0; j<posts.length();j++){
+				ApkEntity newsO = new ApkEntity();
+				JSONObject newsObj = posts.getJSONObject(j);
+				JSONObject author = posts.getJSONObject(j).getJSONObject("author");
+							
+				String id = newsObj.getString("id");
+				String title = newsObj.getString("title");
+				String content = newsObj.getString("content");
+				String date = newsObj.getString("date");
+				String imageurl = newsObj.getString("thumbnail");				
+				String name = author.getString("name");
+												
+				newsO.setId(id);
+				newsO.setDate(date);
+				newsO.setContent(content);
+				newsO.setTitle(title);
+				newsO.setName(name);
+		//		newsO.setImageUrl(imageurl);				
+				newsObjects[j]=newsO;
+			}
+			getImage();
+			setData();																
 		} catch (Exception e) {	
 			e.printStackTrace();
 		}		
@@ -214,20 +214,39 @@ public class MainActivity extends Activity implements view.ReFlashListView.IRefl
 			adapter.onDateChange(apk_list);
 		}
 	}
+	
+	
 
 	private void setData() {
 		// TODO Auto-generated method stub
-		apk_list = new ArrayList<ApkEntity>();
-		for(int i=0 ; i<10 ; i++){
-			ApkEntity entity = new ApkEntity();
-			entity.setTitle(""+newsObject.getTitle());
-			entity.setContent(""+newsObject.getContent());
-			entity.setName(""+newsObject.getName());
-			entity.setDate(""+newsObject.getDate());
+		apk_list = new ArrayList<ApkEntity>();		
+		for(int i=0 ; i<newsObjects.length; i++){
+			
+			ApkEntity entity = new ApkEntity();	
+			
+			entity.setTitle(""+newsObjects[i].getTitle());
+			entity.setContent(""+newsObjects[i].getContent());
+			entity.setName(" "+newsObjects[i].getName());
+			entity.setDate(" "+newsObjects[i].getDate());
 			entity.setCategory("活动沙龙");
+			entity.setApk_im(bitmap);
 			apk_list.add(entity);
-		}
+		}	
 	}
+	
+/*	
+	private void setImage() {
+		// TODO Auto-generated method stub
+		Log.d("Image", "设置图片1");
+		apk_list = new ArrayList<ApkEntity>();		
+		Log.d("Image", "设置图片2");
+		for(int i=0 ; i<newsObjects.length; i++){			
+			ApkEntity entity = new ApkEntity();					
+			entity.setApk_im(bitmap);
+			apk_list.add(entity);
+		}	
+	}
+	*/
 	
 	/*
 	 * 写入刷新数据
@@ -235,12 +254,12 @@ public class MainActivity extends Activity implements view.ReFlashListView.IRefl
 	public void setReflashData(){
 		for(int i=0; i<2; i++){
 			ApkEntity entity = new ApkEntity();
-			entity.setTitle(""+newsObject.getTitle());
-			entity.setContent(""+newsObject.getContent());
-			entity.setName(""+newsObject.getName());
-			entity.setDate(""+newsObject.getDate());
+			entity.setTitle(" "+newsObjects[i].getTitle());
+			entity.setContent(" "+newsObjects[i].getContent());
+			entity.setName(" "+newsObjects[i].getName());
+			entity.setDate(" "+newsObjects[i].getDate());
 			entity.setCategory("职场攻略");
-			entity.setApk_im(newsObject.getApk_im());
+	//		entity.setApk_im(newsObjects[0].getApk_im());
 			apk_list.add(0, entity);
 		}
 	}
@@ -333,8 +352,5 @@ public class MainActivity extends Activity implements view.ReFlashListView.IRefl
 		}else {
 			this.finish();
 		}
-	}
-
-	
-	
+	}	
 }
