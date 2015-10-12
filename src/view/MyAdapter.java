@@ -3,11 +3,14 @@ package view;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicReferenceArray;
 
+import com.charlie.ivotytower.MainActivity;
 import com.charlie.ivotytower.R;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;

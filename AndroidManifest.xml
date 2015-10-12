@@ -59,6 +59,10 @@
             android:name="view.Zhic"
             android:label="@string/app_name" >
         </activity>
+        <activity
+            android:name="view.Detailnews"
+            android:label="@string/app_name" >
+        </activity>
     </application>
 
 </manifest>

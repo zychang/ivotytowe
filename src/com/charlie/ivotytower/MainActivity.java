@@ -1,5 +1,6 @@
 package com.charlie.ivotytower;
 
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
@@ -23,8 +24,14 @@ import org.json.JSONObject;
 
 
 
+
+
+
+
+
 import view.ApkEntity;
 import view.Deguo;
+import view.Detailnews;
 import view.Guan_iv;
 import view.Guan_yu;
 import view.Huodong;
@@ -42,6 +49,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -50,6 +58,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -59,7 +69,7 @@ public class MainActivity extends Activity implements view.ReFlashListView.IRefl
 	public ArrayList<ApkEntity> apk_list;	
 	private Slindingmenu mleftMenu;
 	private static boolean isExit = false;
-	
+		
 	List<ApkEntity> news = new ArrayList<ApkEntity>();
 	
 	public ApkEntity[] newsObjects = new ApkEntity[10];	
@@ -119,9 +129,28 @@ public class MainActivity extends Activity implements view.ReFlashListView.IRefl
 		text_2 = (TextView) findViewById(R.id.shij);
 		text_1 = (TextView) findViewById(R.id.zhic);
 		text_1 = (TextView) findViewById(R.id.shouy);
+		listView = (ReFlashListView) findViewById(R.id.shou_item);
 			
 		sendRequestWithHttpUrlConnection();
 		getImage();
+		
+		listView.setOnItemClickListener((OnItemClickListener)new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				Intent it = new Intent(MainActivity.this, Detailnews.class);
+				it.putExtra("title", newsObjects[position-1].getTitle());
+				it.putExtra("content", newsObjects[position-1].getContent());
+				it.putExtra("date", newsObjects[position-1].getDate());
+				it.putExtra("name", newsObjects[position-1].getName());
+		//		it.putExtra("bitmap", Bitmap2bytes(bitmap));
+				startActivity(it);
+			}
+		});
+		
+		
+		
 	}
 	
 	public void getImage(){
@@ -175,7 +204,7 @@ public class MainActivity extends Activity implements view.ReFlashListView.IRefl
 	
 	protected void parseJSONWithGSON(String jsonData) {
 		try {			
-			JSONArray posts = new JSONObject(jsonData).getJSONArray("posts");						
+			JSONArray posts = new JSONObject(jsonData).getJSONArray("posts");				
 			for(int j=0; j<posts.length();j++){
 				ApkEntity newsO = new ApkEntity();
 				JSONObject newsObj = posts.getJSONObject(j);
@@ -234,17 +263,12 @@ public class MainActivity extends Activity implements view.ReFlashListView.IRefl
 		}	
 	}
 	
-/*	
-	private void setImage() {
-		// TODO Auto-generated method stub
-		Log.d("Image", "…Ë÷√Õº∆¨1");
-		apk_list = new ArrayList<ApkEntity>();		
-		Log.d("Image", "…Ë÷√Õº∆¨2");
-		for(int i=0 ; i<newsObjects.length; i++){			
-			ApkEntity entity = new ApkEntity();					
-			entity.setApk_im(bitmap);
-			apk_list.add(entity);
-		}	
+	/*
+	private byte[] Bitmap2bytes(Bitmap bm){
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+		
+		return baos.toByteArray();		
 	}
 	*/
 	

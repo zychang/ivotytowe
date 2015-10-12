@@ -7,17 +7,17 @@
     <ImageView
         android:id="@+id/details_image"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="150dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:paddingTop="10dp"
         android:src="@drawable/ic_launcher" />
     <TextView 
-        android:id="@+id/title"
+        android:id="@+id/details_title"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:text="中国人的智慧中国人的智慧中国人的智慧（持续更新）"
-        android:textSize="20sp"
+        android:textSize="25sp"
         />
     <LinearLayout 
         android:layout_width="match_parent"
@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#d3d3d3"
-            android:layout_marginLeft="10dp"
+            android:textSize="15sp"
             android:text="赵文静"
             />
         <TextView 
@@ -39,6 +39,7 @@
             android:textColor="#d3d3d3"
             android:layout_marginLeft="30dp"
             android:text="2015-08-12 08-12-29"
+            android:textSize="15sp"
             />
 
         <TextView
@@ -47,6 +48,7 @@
             android:layout_height="wrap_content"
             android:textColor="#d3d3d3"
             android:layout_marginLeft="30dp"
+            android:textSize="15sp"
             android:text="象牙塔国际" />
     </LinearLayout>
     

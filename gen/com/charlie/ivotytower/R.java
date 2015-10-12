@@ -43,6 +43,7 @@ public final class R {
         public static final int details_content=0x7f09001f;
         public static final int details_image=0x7f09001a;
         public static final int details_time=0x7f09001d;
+        public static final int details_title=0x7f09001b;
         public static final int guany=0x7f090012;
         public static final int huo_list=0x7f090009;
         public static final int huod=0x7f090010;
@@ -65,7 +66,6 @@ public final class R {
         public static final int shouy=0x7f09000b;
         public static final int stulist=0x7f090022;
         public static final int tip=0x7f090005;
-        public static final int title=0x7f09001b;
         public static final int update_time=0x7f090006;
         public static final int xues=0x7f09000e;
         public static final int yu=0x7f090013;
